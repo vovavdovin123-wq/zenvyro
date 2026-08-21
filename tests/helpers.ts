@@ -7,7 +7,7 @@ export function readSrc(...parts: string[]) {
 }
 
 export function makeOrder(over: Partial<Order> = {}): Order {
-  return {
+  const base: Order = {
     id: "aabbccdd",
     status: "new",
     source: "web",
@@ -19,10 +19,13 @@ export function makeOrder(over: Partial<Order> = {}): Order {
     prepaymentReceived: false,
     development: { currentStageId: 1, reworkCount: 0, runs: [] },
     events: [],
+  };
+  return {
+    ...base,
     ...over,
-    client: { name: "Тест", phone: "+7 (999) 123-45-67", ...over.client },
-    brief: { goal: "", deadline: "", budget: "", references: "", step: "goal", ...over.brief },
-    development: { currentStageId: 1, reworkCount: 0, runs: [], ...over.development },
+    client: { ...base.client, ...over.client },
+    brief: { ...base.brief, ...over.brief },
+    development: { ...base.development, ...over.development },
   };
 }
 
