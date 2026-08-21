@@ -1,31 +1,45 @@
 # Zenvyro
 
-Сайт студии, Telegram-бот и внутренний контур заказа.
+Сайт студии и внутренний контур заявок.
 
 ## Запуск
 
 ```bash
 cp .env.example .env.local
 npm run dev
-npm run bot
 ```
 
-Сайт: http://localhost:3000  
-Панель человека: http://localhost:3000/studio
+Сайт: http://localhost:3000
+
+Telegram-бот (отдельный процесс): `npm run bot`
+
+## Где что лежит
+
+```
+src/
+  app/            маршруты Next.js — страницы и API
+  components/     UI по разделам сайта
+    layout/       шапка, подвал, логотип
+    home/         главная
+    works/        кейсы
+    team/         люди
+    process/      процесс
+    apply/        форма заявки
+    legal/        документы и реквизиты
+    effects/      фоновые сцены (точки, ferro, molten, topo)
+    ui/           мелкие общие куски
+  content/        тексты сайта: услуги, кейсы, юр.данные
+  styles/         CSS лендинга
+  lib/            общее: цвет акцента, лимиты WebGL
+  studio/         заявки, Telegram, агенты — не публичный сайт
+```
+
+Маршруты в `src/app/` совпадают с URL: `/`, `/works`, `/team`, `/process`, `/contact`, `/requisites`, `/legal/*`.
+
+Тексты страниц — в `src/content/`. Кейсы только в `content/works.ts`, не дублировать в `site.ts`.
+
+`src/studio/` — очередь заявок, шаблоны сообщений и бот. Это внутреннее.
 
 ## Переменные
 
-- `TELEGRAM_BOT_TOKEN` и `TELEGRAM_BOT_USERNAME` — бот для клиента и апрувов
-- `TELEGRAM_ADMIN_CHAT_IDS` — ваш chat id, через запятую
-- `OPENAI_API_KEY` — агенты (Охотник, отклик, цена, spec, QA). Без ключа работают эвристики
-- `CURSOR_API_KEY` — необязательно, Dev-агент запускает этап как PR в Cursor
-
-## Жёсткие правила в коде
-
-1. Код нельзя начинать без предоплаты и фиксации ТЗ
-2. Клиенту только шаблон
-3. Новое требование — новая версия spec.json
-4. Доработка максимум 3 цикла
-5. Демо не уходит, пока человек сам его не открыл
-6. QA код сам не чинит
-7. На отказ клиенту не пишем
+См. `.env.example`. Для карточек заявок в Telegram нужны `TELEGRAM_BOT_TOKEN` и `TELEGRAM_ADMIN_CHAT_IDS`.

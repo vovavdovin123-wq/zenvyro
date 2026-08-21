@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: "inline",
   },
+  async redirects() {
+    return [{ source: "/contacts", destination: "/requisites", permanent: true }];
+  },
 };
 
 export default nextConfig;

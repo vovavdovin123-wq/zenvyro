@@ -65,6 +65,7 @@ export function applyAccent(hex: string) {
   const hsv = hexToHsv(color);
   const dark = hsvToHex(hsv.h, Math.min(hsv.s + 0.1, 1), Math.max(hsv.v * 0.7, 0));
   const light = hsvToHex((hsv.h + 30) % 360, Math.max(hsv.s * 0.8, 0), Math.min(hsv.v * 1.15, 1));
+  const spark = hsvToHex((hsv.h + 140) % 360, Math.min(Math.max(hsv.s, 0.62), 1), 1);
   const [r, g, b] = parseHexRgb(color);
   const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
   const root = document.documentElement;
@@ -76,6 +77,8 @@ export function applyAccent(hex: string) {
   root.style.setProperty("--pro-light", light);
   root.style.setProperty("--pro-glow", `${r}, ${g}, ${b}`);
   root.style.setProperty("--pro-fg", lum > 0.5 ? "#000" : "#fff");
+  root.style.setProperty("--mark-dot", spark);
+  root.style.setProperty("--accent-cyan", spark);
   accentListeners.forEach((listener) => listener(color));
 }
 

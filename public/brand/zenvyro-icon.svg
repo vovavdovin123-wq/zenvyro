@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
     <linearGradient id="zenvyro-g" x1="8" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#5227FF"/>
+      <stop stop-color="#A855F7"/>
       <stop offset="1" stop-color="#FF9FFC"/>
     </linearGradient>
   </defs>
   <rect width="64" height="64" rx="18" fill="url(#zenvyro-g)"/>
-  <path fill="#0B0A10" d="M17 16.5h30v7.2L29.2 40.2H47V47.5H17v-7.2L34.8 23.7H17V16.5z"/>
-  <circle cx="47.2" cy="19.4" r="3.7" fill="#27C5FF"/>
+  <path d="M40 20.1 A16 16 0 1 1 17 28.5" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <circle cx="32" cy="34" r="7" fill="#FFFFFF"/>
+  <circle cx="40" cy="20.1" r="4" fill="#27C5FF"/>
 </svg>

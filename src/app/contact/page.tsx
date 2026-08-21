@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ApplyHero } from "@/components/ApplyHero";
+import { ApplyHero } from "@/components/apply/ApplyHero";
 
 export const metadata: Metadata = {
   title: "Обсудить проект",

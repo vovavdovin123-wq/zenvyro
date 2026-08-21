@@ -1,0 +1,359 @@
+.zn-apply {
+  padding: 72px 0 96px;
+}
+
+.zn-apply--page {
+  padding-top: 120px;
+}
+
+.zn-apply-shell {
+  max-width: 1324px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.zn-apply-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 640px;
+  height: auto;
+  border-radius: 28px;
+  background: #0b0a10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.zn-apply-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.zn-apply-inner {
+  position: relative;
+  z-index: 3;
+  width: min(640px, calc(100% - 48px));
+  overflow: visible;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 56px 0 48px;
+}
+
+.zn-apply-inner::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.zn-apply-label {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  text-align: left;
+}
+
+.zn-apply-hint {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.48);
+  text-align: left;
+}
+
+.zn-apply-kinds {
+  display: grid;
+  gap: 10px;
+}
+
+.zn-apply-kinds button,
+.zn-apply-fields input,
+.zn-apply-fields textarea,
+.zn-apply-stepper textarea,
+.step-default textarea,
+.step-default input {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(18, 15, 23, 0.55);
+  backdrop-filter: blur(18px);
+  color: #fff;
+  font-size: 15px;
+}
+
+.zn-apply-kinds button {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  cursor: pointer;
+  text-align: left;
+  transform: translateZ(0);
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.zn-apply-kinds button:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.zn-apply-kinds button:active {
+  transform: scale(0.975);
+}
+
+.zn-apply-kinds button.is-on {
+  border-color: rgba(168, 85, 247, 0.8);
+  background: rgba(168, 85, 247, 0.16);
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.35), 0 10px 28px rgba(168, 85, 247, 0.18);
+}
+
+.zn-apply-kinds button strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.zn-apply-kinds button span {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.zn-apply-fields {
+  display: grid;
+  gap: 10px;
+}
+
+.zn-apply-fields input,
+.zn-apply-fields textarea,
+.step-default textarea,
+.step-default input {
+  padding: 14px 16px;
+  outline: none;
+  color-scheme: dark;
+  resize: none;
+}
+
+.zn-apply-fields textarea,
+.step-default textarea {
+  overflow: hidden;
+  min-height: 88px;
+  line-height: 1.45;
+  field-sizing: content;
+}
+
+.zn-apply-fields input::placeholder,
+.step-default textarea::placeholder,
+.step-default input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.zn-apply-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.zn-apply-chips button {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 15, 23, 0.45);
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transform: translateZ(0);
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.zn-apply-chips button:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.zn-apply-chips button:active {
+  transform: scale(0.96);
+}
+
+.zn-apply-chips button.is-on {
+  border-color: rgba(168, 85, 247, 0.8);
+  background: rgba(168, 85, 247, 0.18);
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.3);
+}
+
+.zn-apply .step-circle-container {
+  max-width: none;
+}
+
+.zn-apply .step-default {
+  text-align: left;
+}
+
+.zn-apply-works {
+  margin-top: 18px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.zn-apply-consent {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.zn-apply-consent input {
+  margin-top: 3px;
+}
+
+.zn-apply-consent a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.zn-apply-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.zn-apply-title {
+  margin: 0;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: #fff;
+}
+
+.zn-apply-sub {
+  margin: 18px 0 0;
+  max-width: 42ch;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.zn-apply .outer-container {
+  width: 100%;
+  margin-top: 32px;
+}
+
+.zn-apply .step-indicator-inner {
+  height: 1.55rem;
+  width: 1.55rem;
+}
+
+.zn-apply .step-number {
+  font-size: 0.75rem;
+}
+
+.zn-apply-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 12px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.zn-apply-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.zn-apply-btn--solid {
+  background: #fff;
+  color: #120f17;
+}
+
+.zn-apply-btn--ghost {
+  background: var(--surface-ghost);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: var(--surface-ghost-highlight);
+  backdrop-filter: var(--surface-ghost-blur);
+}
+
+.zn-apply-err,
+.zn-apply-done p {
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.zn-apply-err {
+  color: #fca5a5;
+}
+
+.zn-apply-done {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (max-width: 720px) {
+  .zn-apply {
+    padding: 56px 0 72px;
+  }
+
+  .zn-apply--page {
+    padding-top: 104px;
+  }
+
+  .zn-apply-shell {
+    padding: 0 16px;
+  }
+
+  .zn-apply-card {
+    border-radius: 20px;
+    min-height: 0;
+    height: auto;
+  }
+
+  .zn-apply-inner {
+    width: min(560px, calc(100% - 32px));
+    padding: 48px 0;
+  }
+
+  .zn-apply-actions {
+    flex-direction: column;
+  }
+
+  .zn-apply-btn {
+    width: 100%;
+  }
+}

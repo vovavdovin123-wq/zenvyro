@@ -1,0 +1,10 @@
+process.env.STUDIO_PASSWORD = "unit-test-studio-password";
+process.env.STUDIO_MIN_BUDGET = "5000";
+process.env.OPENAI_API_KEY = "";
+process.env.TELEGRAM_BOT_TOKEN = "";
+process.env.TELEGRAM_BOT_USERNAME = "";
+process.env.TELEGRAM_ADMIN_CHAT_IDS = "";
+process.env.ORDER_BOT_WEBHOOK_URL = "";
+process.env.ORDER_BOT_WEBHOOK_SECRET = "";
+process.env.NEXT_PUBLIC_SITE_URL = "https://zenvyro.example.test";
+process.env.CURSOR_API_KEY = "";

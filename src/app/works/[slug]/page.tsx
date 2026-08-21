@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { WorkCase } from "@/components/WorkCase";
-import { getWork, nextWork, works } from "@/lib/works";
-import "@/components/works.css";
+import { WorkCase } from "@/components/works/WorkCase";
+import { getWork, nextWork, works } from "@/content/works";
+import "@/styles/works.css";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -17,6 +17,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: work.title,
     description: work.summary,
+    openGraph: {
+      title: work.title,
+      description: work.summary,
+    },
   };
 }
 
@@ -25,5 +29,7 @@ export default async function WorkPage({ params }: Props) {
   const work = getWork(slug);
   if (!work) notFound();
 
-  return <WorkCase work={work} next={nextWork(work.slug)} />;
+  const next = nextWork(work.slug);
+  if (!next) notFound();
+  return <WorkCase work={work} next={next} />;
 }

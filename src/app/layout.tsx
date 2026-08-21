@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Alumni_Sans, Geist_Mono, Inter, Sofia_Sans_Condensed } from "next/font/google";
-import { AccentProvider } from "@/components/AccentProvider";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { MotionRoot } from "@/components/MotionRoot";
+import { AccentProvider } from "@/components/layout/AccentProvider";
+import { SiteChrome } from "@/components/layout/SiteChrome";
+import { MotionRoot } from "@/components/layout/MotionRoot";
 import "./globals.css";
-import "@/components/landing.css";
-import "@/components/works.css";
+import "@/styles/landing.css";
+import "@/styles/works.css";
 
 const alumni = Alumni_Sans({
   variable: "--font-alumni",
@@ -39,11 +38,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://zenvyro.vercel.app"),
   title: {
     default: "Zenvyro",
     template: "%s · Zenvyro",
   },
   description: "Веб-студия. Сайты, сервисы и Telegram-продукты с характером.",
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    siteName: "Zenvyro",
+  },
 };
 
 export const viewport: Viewport = {
@@ -59,9 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className={`${sans.className} flex min-h-full flex-col bg-bg-primary font-sans text-ink antialiased`}>
         <MotionRoot>
           <AccentProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <SiteChrome>{children}</SiteChrome>
           </AccentProvider>
         </MotionRoot>
       </body>

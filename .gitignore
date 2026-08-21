@@ -43,3 +43,4 @@ next-env.d.ts
 
 # local order database
 /data/db.json
+/data/stats.json
