@@ -1,5 +1,6 @@
 .zn-apply {
   padding: 72px 0 96px;
+  overflow-x: clip;
 }
 
 .zn-apply--page {
@@ -16,6 +17,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  overflow-x: clip;
   min-height: 640px;
   height: auto;
   border-radius: 28px;
@@ -39,6 +41,7 @@
   position: relative;
   z-index: 3;
   width: min(640px, calc(100% - 48px));
+  max-width: 100%;
   overflow: visible;
   scrollbar-width: none;
   display: flex;
@@ -80,7 +83,7 @@
 .zn-apply-fields textarea,
 .zn-apply-stepper textarea,
 .step-default textarea,
-.step-default input {
+.step-default input:not([type="checkbox"]):not([type="radio"]) {
   width: 100%;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -138,7 +141,7 @@
 .zn-apply-fields input,
 .zn-apply-fields textarea,
 .step-default textarea,
-.step-default input {
+.step-default input:not([type="checkbox"]):not([type="radio"]) {
   padding: 14px 16px;
   outline: none;
   color-scheme: dark;
@@ -214,22 +217,79 @@
 .zn-apply-consent {
   margin-top: 16px;
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: flex-start;
   text-align: left;
+}
+
+.zn-apply-consent > button {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  padding: 0;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(18, 15, 23, 0.45);
+  color: transparent;
+  cursor: pointer;
+  transform: translateZ(0);
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.zn-apply-consent > button:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.zn-apply-consent > button:active {
+  transform: scale(0.9);
+}
+
+.zn-apply-consent > button svg {
+  pointer-events: none;
+}
+
+.zn-apply-consent-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.zn-apply-consent-copy span,
+.zn-apply-consent-text {
   font-size: 13px;
-  line-height: 1.45;
-  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.72);
 }
 
-.zn-apply-consent input {
-  margin-top: 3px;
+.zn-apply-consent-text {
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
 }
 
-.zn-apply-consent a {
+.zn-apply-consent-copy a {
+  width: fit-content;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.zn-apply-consent-copy a:hover {
   color: #fff;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  border-bottom-color: rgba(255, 255, 255, 0.7);
 }
 
 .zn-apply-actions {

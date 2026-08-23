@@ -41,6 +41,6 @@ describe("studio shell", () => {
     expect(orders).toContain("zn-dash-table-scroll");
     const shell = readSrc("studio", "StudioShell.tsx");
     expect(shell).toContain("HeroBackdrop");
-    expect(shell).toContain("StudioPage");
+    expect(shell).not.toContain("AnimatePresence");
   });
 });

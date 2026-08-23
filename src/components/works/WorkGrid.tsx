@@ -21,7 +21,7 @@ function WorkRow({ work, reverse, last }: { work: Work; reverse: boolean; last: 
       className={`group grid items-center gap-8 py-10 lg:grid-cols-2 lg:gap-14 lg:py-14 ${last ? "" : "work-row"}`}
     >
       <div data-topo-window className={`relative overflow-hidden rounded-[1.6rem] ${reverse ? "lg:order-2" : ""}`}>
-        <WorkCover title={work.title} />
+        <WorkCover />
       </div>
       <div className={reverse ? "lg:order-1" : ""}>
         <p className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">

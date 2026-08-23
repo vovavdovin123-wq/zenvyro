@@ -1,10 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { SOURCE_LABEL, STATUS_LABEL, type OrderSource, type OrderStatus } from "@/studio/types";
 import { actions, contact, money, orderMatchesFilter, orderMatchesQuery, orderMoney } from "@/studio/helpers";
-import { press } from "@/studio/StudioMotion";
 import { useStudio } from "@/studio/useStudio";
 
 const FILTERS: Array<{ id: "all" | "work" | OrderStatus; label: string }> = [
@@ -60,17 +58,16 @@ export function StudioOrders() {
 
       <div className="zn-dash-filters" role="tablist" aria-label="Фильтр заказов">
         {FILTERS.map((item) => (
-          <motion.button
+          <button
             key={item.id}
             type="button"
             role="tab"
             aria-selected={filter === item.id}
             className={filter === item.id ? "is-active" : ""}
             onClick={() => setFilter(item.id)}
-            {...press}
           >
             {item.label}
-          </motion.button>
+          </button>
         ))}
       </div>
 
@@ -87,18 +84,11 @@ export function StudioOrders() {
           ) : visible.length === 0 ? (
             <p className="zn-dash-empty">Ничего не нашли. Сбросьте поиск или фильтр.</p>
           ) : (
-            visible.map((order, index) => {
+            visible.map((order) => {
               const price = orderMoney(order);
               const open = openId === order.id;
               return (
-                <motion.article
-                  key={order.id}
-                  layout
-                  className={`zn-dash-row${open ? " is-open" : ""}`}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: Math.min(index, 12) * 0.03, duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                >
+                <article key={order.id} className={`zn-dash-row${open ? " is-open" : ""}`}>
                   <button
                     type="button"
                     className="zn-dash-row-main"
@@ -118,45 +108,36 @@ export function StudioOrders() {
                     </span>
                     <span className="zn-dash-row-price">{price ? `${price} ₽` : "—"}</span>
                   </button>
-                  <AnimatePresence initial={false}>
-                    {open ? (
-                      <motion.div
-                        className="zn-dash-row-detail"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        {contact(order) ? <p className="zn-dash-order-meta">{contact(order)}</p> : null}
-                        <p className="zn-dash-lead">{order.leadText}</p>
-                        {order.hunter ? <p className="zn-dash-order-meta">Охотник: {order.hunter.reason}</p> : null}
-                        {order.replyDraft && order.source === "hunt" ? (
-                          <p className="zn-dash-lead">Черновик: {order.replyDraft}</p>
-                        ) : null}
-                        {order.pricing ? (
-                          <p className="zn-dash-order-meta">
-                            Оценка: {money(order.pricing.priceRub)} ₽ / {order.pricing.timelineDays} дн
-                          </p>
-                        ) : null}
-                        <div className="zn-dash-actions">
-                          {actions
-                            .filter((item) => item.statuses.includes(order.status))
-                            .map((item) => (
-                              <motion.button
-                                type="button"
-                                key={item.action}
-                                onClick={() => void run(order.id, item.action)}
-                                className="zn-studio-btn"
-                                {...press}
-                              >
-                                {item.label}
-                              </motion.button>
-                            ))}
-                        </div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </motion.article>
+                  {open ? (
+                    <div className="zn-dash-row-detail">
+                      {contact(order) ? <p className="zn-dash-order-meta">{contact(order)}</p> : null}
+                      <p className="zn-dash-lead">{order.leadText}</p>
+                      {order.hunter ? <p className="zn-dash-order-meta">Охотник: {order.hunter.reason}</p> : null}
+                      {order.replyDraft && order.source === "hunt" ? (
+                        <p className="zn-dash-lead">Черновик: {order.replyDraft}</p>
+                      ) : null}
+                      {order.pricing ? (
+                        <p className="zn-dash-order-meta">
+                          Оценка: {money(order.pricing.priceRub)} ₽ / {order.pricing.timelineDays} дн
+                        </p>
+                      ) : null}
+                      <div className="zn-dash-actions">
+                        {actions
+                          .filter((item) => item.statuses.includes(order.status))
+                          .map((item) => (
+                            <button
+                              type="button"
+                              key={item.action}
+                              onClick={() => void run(order.id, item.action)}
+                              className="zn-studio-btn"
+                            >
+                              {item.label}
+                            </button>
+                          ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </article>
               );
             })
           )}

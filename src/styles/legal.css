@@ -1,9 +1,32 @@
 .zn-legal {
   position: relative;
-  z-index: 2;
+  isolation: isolate;
   min-height: 70svh;
   padding: 128px 0 96px;
   background: #0b0a10;
+  overflow: clip;
+}
+
+.zn-legal-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.zn-legal-fx .ln-hero-backdrop,
+.zn-legal-fx .ln-hero-dots,
+.zn-legal-fx .dot-field-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.zn-legal .zn-inner {
+  position: relative;
+  z-index: 3;
 }
 
 .zn-legal-title {
@@ -35,8 +58,11 @@
 .zn-legal-card {
   padding: 28px 28px 24px;
   border-radius: 20px;
-  background: #120f17;
+  background: rgba(18, 15, 23, 0.62);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  overflow: hidden;
 }
 
 .zn-legal-card h2 {

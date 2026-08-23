@@ -49,25 +49,26 @@ export function StudioProvider({ children }: { children: ReactNode }) {
 
   const load = useCallback(async (days: Period = period) => {
     const response = await studioFetch(`/api/studio?days=${days}`);
-    if (response.status === 401) {
-      setNeedAuth(true);
-      return;
-    }
     if (!response.ok) {
       setError("Не удалось загрузить студию");
       return;
     }
     const json = (await response.json()) as {
-      orders: Order[];
-      stats: StatsDay[];
-      summary: Summary;
-      funnel: Funnel;
+      needAuth?: boolean;
+      orders?: Order[];
+      stats?: StatsDay[];
+      summary?: Summary;
+      funnel?: Funnel;
     };
+    if (json.needAuth) {
+      setNeedAuth(true);
+      return;
+    }
     setNeedAuth(false);
-    setOrders(json.orders);
+    setOrders(json.orders ?? []);
     setStats(json.stats ?? []);
-    setSummary(json.summary);
-    setFunnel(json.funnel);
+    setSummary(json.summary ?? null);
+    setFunnel(json.funnel ?? null);
   }, [period]);
 
   useEffect(() => {

@@ -39,7 +39,7 @@ function periodDays(request: Request) {
 
 export async function GET(request: Request) {
   if (!(await authorized())) {
-    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+    return NextResponse.json({ needAuth: true });
   }
   try {
     const [orders, stats] = await Promise.all([listOrders(), listStats(periodDays(request))]);

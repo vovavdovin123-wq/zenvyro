@@ -1,10 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { PERIODS, pct } from "@/studio/helpers";
 import { ComboChart, DualRing } from "@/studio/charts";
-import { press } from "@/studio/StudioMotion";
 import { useStudio } from "@/studio/useStudio";
 
 export function StudioFunnel() {
@@ -27,15 +25,14 @@ export function StudioFunnel() {
         </div>
         <div className="zn-dash-period" role="group" aria-label="Период статистики">
           {PERIODS.map((days) => (
-            <motion.button
+            <button
               key={days}
               type="button"
               className={period === days ? "is-active" : ""}
               onClick={() => setPeriod(days)}
-              {...press}
             >
               {days} дней
-            </motion.button>
+            </button>
           ))}
         </div>
       </header>

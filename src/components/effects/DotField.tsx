@@ -110,6 +110,7 @@ export const DotField = memo(function DotField({
       const rect = parent.getBoundingClientRect();
       const w = Math.round(rect.width);
       const h = Math.round(rect.height);
+      if (w < 2 || h < 2) return;
       const prev = sizeRef.current;
       if (isToolbarJitter(prev.w, prev.h, w, h)) return;
       canvasSurface.width = w * dpr;
@@ -119,6 +120,7 @@ export const DotField = memo(function DotField({
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       sizeRef.current = { w, h };
       buildDots(w, h);
+      tryStart();
     }
 
     function resize() {
@@ -249,6 +251,9 @@ export const DotField = memo(function DotField({
 
     doResize();
     window.addEventListener("resize", resize);
+    const parent = canvasSurface.parentElement;
+    const ro = new ResizeObserver(() => doResize());
+    if (parent) ro.observe(parent);
     if (coarse) {
       window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("touchmove", onScroll, { passive: true });
@@ -257,13 +262,19 @@ export const DotField = memo(function DotField({
     }
     const io = new IntersectionObserver(
       ([entry]) => {
-        visible = entry.isIntersecting;
+        const box = entry.boundingClientRect;
+        visible =
+          entry.isIntersecting ||
+          (box.width > 8 &&
+            box.height > 8 &&
+            box.bottom > 0 &&
+            box.top < (window.innerHeight || 1));
         if (visible) tryStart();
         else tryStop();
       },
       { threshold: 0 },
     );
-    io.observe(canvasSurface);
+    io.observe(parent ?? canvasSurface);
     tryStart();
     rebuildRef.current = () => {
       const { w, h } = sizeRef.current;
@@ -277,6 +288,7 @@ export const DotField = memo(function DotField({
       tryStop();
       clearTimeout(resizeTimer);
       clearTimeout(scrollTimer);
+      ro.disconnect();
       io.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("scroll", onScroll);

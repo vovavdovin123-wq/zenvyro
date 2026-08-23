@@ -30,10 +30,12 @@ export function coverGlCanvas(canvas: HTMLCanvasElement) {
   canvas.style.width = "100%";
   canvas.style.height = "100%";
   canvas.style.display = "block";
+  canvas.style.imageRendering = "auto";
 }
 
 export function glDpr(height = 0) {
-  if (glIsLite() || isCoarsePointer()) return 1;
   const raw = typeof window === "undefined" ? 1 : window.devicePixelRatio || 1;
+  if (glIsLite()) return 1;
+  if (isCoarsePointer()) return Math.min(raw, 1.5);
   return height > 900 ? 1 : Math.min(raw, 1.25);
 }

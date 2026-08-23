@@ -22,6 +22,7 @@ describe("studio lock when password env is empty", () => {
     process.env.NODE_ENV = "development";
     const { GET } = await import("@/app/api/studio/route");
     const res = await GET(new Request("http://zenvyro.example.test/api/studio"));
-    expect(res.status).toBe(401);
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ needAuth: true });
   });
 });

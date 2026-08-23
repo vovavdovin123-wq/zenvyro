@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { press } from "@/studio/StudioMotion";
 import { useStudio } from "@/studio/useStudio";
 
 export function StudioFreelance() {
@@ -73,14 +71,13 @@ export function StudioFreelance() {
             inputMode="numeric"
             className="zn-dash-field"
           />
-          <motion.button
+          <button
             type="submit"
             disabled={saving || manual.leadText.trim().length < 8}
             className="zn-studio-btn zn-studio-btn--primary zn-dash-span-2"
-            {...press}
           >
             {saving ? "Сохраняем…" : "Добавить в сводку"}
-          </motion.button>
+          </button>
         </form>
       </section>
     </div>

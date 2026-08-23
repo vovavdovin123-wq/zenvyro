@@ -35,6 +35,20 @@ export function loadApplyHelpers(): {
   phoneDigits: (value: string) => string;
   formatPhone: (value: string) => string;
   isMessengerOrEmail: (value: string) => boolean;
+  applyPhoneEdit: (
+    value: string,
+    start?: number,
+    end?: number,
+    insert?: string,
+    del?: string,
+  ) => { phone: string; caret: number };
+  applyBudgetEdit: (
+    value: string,
+    start?: number,
+    end?: number,
+    insert?: string,
+    del?: string,
+  ) => { budget: string; caret: number };
 } {
   const src = readSrc("components", "apply", "ApplyHero.tsx");
   const start = src.indexOf("function budgetDigits");
@@ -44,6 +58,6 @@ export function loadApplyHelpers(): {
   }
   const chunk = src.slice(start, end).replace(/: string/g, "");
   return new Function(
-    `${chunk}; return { budgetDigits, formatBudget, phoneDigits, formatPhone, isMessengerOrEmail };`,
+    `${chunk}; return { budgetDigits, formatBudget, phoneDigits, formatPhone, isMessengerOrEmail, applyPhoneEdit, applyBudgetEdit };`,
   )() as ReturnType<typeof loadApplyHelpers>;
 }

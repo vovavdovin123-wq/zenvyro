@@ -77,7 +77,6 @@ export function TeamView() {
                 {team.map((person, index) => (
                   <StoryRow
                     key={person.name}
-                    cover={person.name}
                     kicker={person.role}
                     title={person.name}
                     text={person.note}

@@ -25,6 +25,8 @@
 .step-content-default {
   position: relative;
   overflow: hidden;
+  overflow-x: clip;
+  isolation: isolate;
 }
 
 .step-default {

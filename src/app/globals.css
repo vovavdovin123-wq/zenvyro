@@ -60,6 +60,63 @@ body {
   z-index: 1;
 }
 
+.zn-copy-card,
+.zn-legal-card,
+.zn-glass,
+.zn-bento-card,
+.zn-cta-card,
+.zn-how,
+.zn-process-detail,
+.zn-works-intro,
+.zn-works-banner,
+.zn-case-hero,
+.zn-case-screen,
+.zn-case-next,
+.zn-apply-card,
+.zn-apply-inner,
+.ln-hero-code-window,
+.ln-hero-code-pre,
+.ln-hero-code-footer,
+.ln-hero-code-presets,
+.card-nav,
+.nav-card,
+.zn-dash-card,
+.zn-dash-table,
+.zn-dash-table-scroll,
+.zn-dash-nav {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.zn-copy-card::-webkit-scrollbar,
+.zn-legal-card::-webkit-scrollbar,
+.zn-glass::-webkit-scrollbar,
+.zn-bento-card::-webkit-scrollbar,
+.zn-cta-card::-webkit-scrollbar,
+.zn-how::-webkit-scrollbar,
+.zn-process-detail::-webkit-scrollbar,
+.zn-works-intro::-webkit-scrollbar,
+.zn-works-banner::-webkit-scrollbar,
+.zn-case-hero::-webkit-scrollbar,
+.zn-case-screen::-webkit-scrollbar,
+.zn-case-next::-webkit-scrollbar,
+.zn-apply-card::-webkit-scrollbar,
+.zn-apply-inner::-webkit-scrollbar,
+.ln-hero-code-window::-webkit-scrollbar,
+.ln-hero-code-pre::-webkit-scrollbar,
+.ln-hero-code-footer::-webkit-scrollbar,
+.ln-hero-code-presets::-webkit-scrollbar,
+.card-nav::-webkit-scrollbar,
+.nav-card::-webkit-scrollbar,
+.zn-dash-card::-webkit-scrollbar,
+.zn-dash-table::-webkit-scrollbar,
+.zn-dash-table-scroll::-webkit-scrollbar,
+.zn-dash-nav::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
 .zn-copy-card {
   position: relative;
   overflow: hidden;

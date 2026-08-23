@@ -2,6 +2,7 @@
 
 import { memo, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { glDpr, isCoarsePointer } from "@/lib/glBudget";
 
 const frag = `
 precision mediump float;
@@ -166,11 +167,11 @@ export const HeroBand = memo(function HeroBand({
     }
 
     renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.setPixelRatio(1);
     renderer.setClearColor(0x000000, 0);
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
     renderer.domElement.style.display = "block";
+    renderer.domElement.style.imageRendering = "auto";
     container.appendChild(renderer.domElement);
 
     const pointerTarget = new THREE.Vector2(0, 0);
@@ -181,7 +182,7 @@ export const HeroBand = memo(function HeroBand({
     let last = performance.now();
     let lastW = 0;
     let lastH = 0;
-    const coarse = window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0;
+    const coarse = isCoarsePointer();
     if (coarse) material.uniforms.uMouseInfluence.value = 0;
 
     const handleResize = () => {
@@ -190,6 +191,7 @@ export const HeroBand = memo(function HeroBand({
       if (lastW === w && Math.abs(lastH - h) < 120 && lastW > 0) return;
       lastW = w;
       lastH = h;
+      renderer.setPixelRatio(glDpr(h));
       renderer.setSize(w, h, false);
       material.uniforms.uCanvas.value.set(w, h);
       const bounds = container.getBoundingClientRect();
@@ -232,7 +234,16 @@ export const HeroBand = memo(function HeroBand({
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) tryStart();
+        const box = entry.boundingClientRect;
+        const onScreen =
+          entry.isIntersecting ||
+          (box.width > 8 &&
+            box.height > 8 &&
+            box.bottom > 0 &&
+            box.top < (window.innerHeight || 1) &&
+            box.right > 0 &&
+            box.left < (window.innerWidth || 1));
+        if (onScreen) tryStart();
         else tryStop();
       },
       { threshold: 0 },
@@ -278,8 +289,7 @@ export const HeroBand = memo(function HeroBand({
     material.uniforms.uBandWidth.value = bandWidth;
     material.uniforms.uYOffset.value = yOffset;
     material.uniforms.uFadeTop.value = fadeTop;
-    material.uniforms.uMouseInfluence.value =
-      window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0 ? 0 : mouseInfluence;
+    material.uniforms.uMouseInfluence.value = isCoarsePointer() ? 0 : mouseInfluence;
     material.uniforms.uIterations.value = iterations;
     material.uniforms.uIntensity.value = intensity;
     const hex = color.replace("#", "").trim();

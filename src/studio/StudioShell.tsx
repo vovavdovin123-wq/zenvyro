@@ -3,31 +3,10 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
-import { HeroBackdrop, type HeroBackdropProps } from "@/components/home/HeroBackdrop";
+import { HeroBackdrop } from "@/components/home/HeroBackdrop";
 import { usePlayground } from "@/components/layout/AccentProvider";
 import { hexToHsv, hsvToHex } from "@/lib/accent";
-import { StudioPage, press } from "@/studio/StudioMotion";
 import { useStudio } from "@/studio/useStudio";
-
-const BACKDROPS: Record<string, Partial<HeroBackdropProps>> = {
-  "/studio": { yOffset: 0.18 },
-  "/studio/funnel": { yOffset: 0.24 },
-  "/studio/orders": { yOffset: 0.14 },
-  "/studio/freelance": { yOffset: 0.28, scale: 1.08 },
-};
-
-function backdropFor(path: string): Partial<HeroBackdropProps> {
-  if (path.startsWith("/studio/funnel")) return BACKDROPS["/studio/funnel"];
-  if (path.startsWith("/studio/orders")) return BACKDROPS["/studio/orders"];
-  if (path.startsWith("/studio/freelance")) return BACKDROPS["/studio/freelance"];
-  return BACKDROPS["/studio"];
-}
-
-function num(value: unknown, fallback: number) {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : fallback;
-}
 
 function Icon({ name }: { name: "grid" | "trend" | "list" | "plus" }) {
   const common = {
@@ -121,14 +100,9 @@ function StudioLogin() {
           autoComplete="current-password"
         />
         {error ? <p className="zn-dash-error">{error}</p> : null}
-        <motion.button
-          type="submit"
-          disabled={loggingIn}
-          className="zn-studio-btn zn-studio-btn--primary"
-          {...press}
-        >
+        <button type="submit" disabled={loggingIn} className="zn-studio-btn zn-studio-btn--primary">
           {loggingIn ? "Входим…" : "Войти"}
-        </motion.button>
+        </button>
       </form>
     </div>
   );
@@ -162,7 +136,6 @@ function StudioNav() {
               className={`zn-dash-nav-btn${active ? " is-active" : ""}`}
               aria-current={active ? "page" : undefined}
             >
-              {active ? <motion.span layoutId="zn-nav-pill" className="zn-dash-nav-pill" /> : null}
               <span className="zn-dash-nav-ico">
                 <Icon name={item.icon} />
               </span>
@@ -184,26 +157,12 @@ function StudioNav() {
 }
 
 export function StudioFrame({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
   const { needAuth, error } = useStudio();
-  const { snap } = usePlayground();
-  const route = backdropFor(pathname);
-  const fx: Partial<HeroBackdropProps> = {
-    ...route,
-    color: String(snap.values.color ?? "#A855F7"),
-    speed: num(snap.values.speed, 0.2),
-    frequency: num(snap.values.frequency, 1),
-    noise: num(snap.values.noise, 0.15),
-    bandWidth: num(snap.values.bandWidth, 0.14),
-    rotation: num(snap.values.rotation, 90),
-    fadeTop: num(snap.values.fadeTop, 0.75),
-    intensity: num(snap.values.intensity, 1.25),
-  };
 
   return (
     <div className="zn-studio">
       <div className="zn-studio-fx">
-        <HeroBackdrop showFade={false} {...fx} />
+        <HeroBackdrop showFade={false} />
       </div>
       <div className="zn-studio-inner">
         {needAuth ? (
@@ -213,7 +172,7 @@ export function StudioFrame({ children }: { children: ReactNode }) {
             <StudioNav />
             <div className="zn-dash-body">
               {error ? <p className="zn-dash-error">{error}</p> : null}
-              <StudioPage>{children}</StudioPage>
+              {children}
             </div>
           </div>
         )}

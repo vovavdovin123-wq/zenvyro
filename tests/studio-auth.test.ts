@@ -107,6 +107,15 @@ describe("/api/studio auth", () => {
   });
 });
 
+describe("/api/studio session probe", () => {
+  it("returns 200 + needAuth when GET has no session", async () => {
+    cookiesGet.mockReturnValue(undefined);
+    const res = await GET(new Request("http://zenvyro.example.test/api/studio"));
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ needAuth: true });
+  });
+});
+
 describe("/api/studio password oracle", () => {
   it("still answers 401 vs 200 because a login form must reject a wrong password", async () => {
     const wrong = await POST(

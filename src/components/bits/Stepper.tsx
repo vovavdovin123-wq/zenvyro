@@ -5,6 +5,7 @@ import React, {
   Children,
   type HTMLAttributes,
   type ReactNode,
+  useCallback,
   useLayoutEffect,
   useRef,
   useState,
@@ -172,11 +173,11 @@ function StepContentWrapper({
   children: ReactNode;
   className?: string;
 }) {
-  const [parentHeight, setParentHeight] = useState(360);
+  const [parentHeight, setParentHeight] = useState(0);
 
-  const onHeightReady = (height: number) => {
-    setParentHeight(height);
-  };
+  const onHeightReady = useCallback((height: number) => {
+    setParentHeight((prev) => (Math.abs(prev - height) < 2 ? prev : height));
+  }, []);
 
   return (
     <div
@@ -227,8 +228,8 @@ function SlideTransition({
       initial="enter"
       animate="center"
       exit="exit"
-      transition={{ duration: 0.4 }}
-      style={{ position: "absolute", left: 0, right: 0, top: 0 }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      style={{ position: "absolute", left: 0, right: 0, top: 0, width: "100%" }}
     >
       {children}
     </motion.div>
@@ -237,17 +238,22 @@ function SlideTransition({
 
 const stepVariants: Variants = {
   enter: (dir: number) => ({
-    x: dir >= 0 ? "100%" : "-100%",
+    y: dir >= 0 ? 8 : -8,
     opacity: 0,
+    zIndex: 2,
   }),
   center: {
-    x: "0%",
+    y: 0,
     opacity: 1,
+    zIndex: 2,
   },
-  exit: (dir: number) => ({
-    x: dir >= 0 ? "-50%" : "50%",
+  exit: {
+    y: 0,
     opacity: 0,
-  }),
+    zIndex: 1,
+    pointerEvents: "none" as const,
+    transition: { duration: 0.08, ease: [0.4, 0, 1, 1] },
+  },
 };
 
 export function Step({ children }: { children: ReactNode }) {

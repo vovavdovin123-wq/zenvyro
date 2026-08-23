@@ -324,19 +324,23 @@
 
 .ln-hero-code-body {
   padding: 4px 8px;
+  min-width: 0;
   overflow: hidden;
 }
 
 .ln-hero-code-pre {
   margin: 0;
   padding: 12px 8px;
+  max-width: 100%;
+  min-width: 0;
   background: transparent;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 13px;
   line-height: 1.7;
   color: #988bc7;
-  white-space: pre;
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow: hidden;
 }
 
 .c-kw {
@@ -474,16 +478,22 @@
 
 .ln-hero-code-footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
-  gap: 16px;
+  gap: 8px 12px;
+  min-width: 0;
   padding: 4px 16px 14px;
+  overflow: hidden;
 }
 
 .ln-hero-code-presets {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .ln-hero-code-preset {
@@ -541,5 +551,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
+    padding: 4px 12px 12px;
+  }
+
+  .ln-hero-code-preset {
+    padding: 5px 8px;
   }
 }
