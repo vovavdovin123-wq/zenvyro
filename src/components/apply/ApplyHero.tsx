@@ -620,6 +620,7 @@ export function ApplyHero({
                           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
                             <path
                               d="M3.2 8.2 6.4 11.4 12.8 4.6"
+                              pathLength="18"
                               stroke="currentColor"
                               strokeWidth="1.8"
                               strokeLinecap="round"
