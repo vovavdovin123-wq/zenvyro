@@ -44,3 +44,6 @@ next-env.d.ts
 # local order database
 /data/db.json
 /data/stats.json
+
+# local codebase-memory index (CLI, not MCP)
+.codebase-memory/

@@ -83,3 +83,11 @@ export const cursorDev = {
   model: process.env.CURSOR_MODEL ?? "composer-2.5",
   repo: process.env.CURSOR_REPO ?? "",
 };
+
+export function codebaseMemory() {
+  const repo = (process.env.CODEBASE_MEMORY_REPO ?? "").trim();
+  return {
+    repo: repo || process.cwd(),
+    bin: (process.env.CBM_BIN ?? "").trim(),
+  };
+}

@@ -32,6 +32,7 @@ src/
   styles/         CSS лендинга
   lib/            общее: цвет акцента, лимиты WebGL
   studio/         заявки, Telegram, агенты — не публичный сайт
+  memory/         обёртка CLI графа кода (не MCP)
 ```
 
 Маршруты в `src/app/` совпадают с URL: `/`, `/works`, `/team`, `/process`, `/contact`, `/requisites`, `/legal/*`.
@@ -39,6 +40,18 @@ src/
 Тексты страниц — в `src/content/`. Кейсы только в `content/works.ts`, не дублировать в `site.ts`.
 
 `src/studio/` — очередь заявок, шаблоны сообщений и бот. Это внутреннее.
+
+## Граф кода (без MCP)
+
+Нужен бинарник [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) без установки MCP: `install.ps1 --skip-config` или переменная `CBM_BIN`.
+
+```bash
+npm run memory -- index
+npm run memory -- arch
+npm run memory -- search --name Handler --label Function
+npm run memory -- trace ProcessOrder --direction inbound
+npm run memory -- impact
+```
 
 ## Переменные
 

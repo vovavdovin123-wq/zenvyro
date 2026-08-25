@@ -1,4 +1,5 @@
-import { cursorDev, studio } from "../config";
+import { graphPromptBlock, stageNamePattern, studioGraphContext } from "../../memory/context";
+import { codebaseMemory, cursorDev, studio } from "../config";
 import type { Order, StageRun } from "../types";
 import { runJsonAgent } from "./llm";
 
@@ -14,13 +15,23 @@ export async function runDevStage(order: Order): Promise<StageRun> {
     order.spec.stages.find((item) => item.id === order.development.currentStageId) ??
     order.spec.stages[0];
 
+  const memory = codebaseMemory();
+  const graph = await studioGraphContext("dev", {
+    repoPath: memory.repo,
+    namePattern: stageNamePattern(`${stage.title} ${stage.doneWhen} ${order.spec.scope.join(" ")}`),
+    run: { bin: memory.bin || undefined },
+  });
+
   const prompt = [
     `Студия ${studio.name}. Один этап = один PR.`,
     `Этап ${stage.id}: ${stage.title}.`,
     `Готово, когда: ${stage.doneWhen}.`,
     `Работай СТРОГО по spec.json. Не добавляй фичи вне состава.`,
     JSON.stringify(order.spec, null, 2),
-  ].join("\n\n");
+    graphPromptBlock(graph),
+  ]
+    .filter(Boolean)
+    .join("\n\n");
 
   let prUrl: string | undefined;
   let cursorAgentId: string | undefined;
