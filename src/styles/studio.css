@@ -445,6 +445,13 @@ body:has(.zn-studio) {
 }
 
 .zn-dash-welcome .zn-studio-btn {
+  margin-top: 0;
+}
+
+.zn-dash-welcome-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 18px;
 }
 
@@ -505,6 +512,33 @@ body:has(.zn-studio) {
 
 .zn-dash-mini--wide {
   margin-top: 0;
+}
+
+.zn-dash-usage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px 16px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.zn-dash-usage li {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.zn-dash-usage strong {
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.zn-dash-usage em {
+  font-style: normal;
+  opacity: 0.7;
 }
 
 .zn-dash-stats {

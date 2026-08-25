@@ -2,13 +2,14 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { type HumanAction, type Order, type StatsDay } from "@/studio/types";
-import { emptyManual, type Funnel, type Manual, type Period, type Summary } from "@/studio/helpers";
+import { emptyManual, type AgentUsage, type Funnel, type Manual, type Period, type Summary } from "@/studio/helpers";
 
 type StudioValue = {
   orders: Order[];
   stats: StatsDay[];
   summary: Summary | null;
   funnel: Funnel | null;
+  usage: AgentUsage | null;
   needAuth: boolean;
   error: string;
   password: string;
@@ -39,6 +40,7 @@ export function StudioProvider({ children }: { children: ReactNode }) {
   const [stats, setStats] = useState<StatsDay[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
   const [funnel, setFunnel] = useState<Funnel | null>(null);
+  const [usage, setUsage] = useState<AgentUsage | null>(null);
   const [password, setPassword] = useState("");
   const [needAuth, setNeedAuth] = useState(false);
   const [error, setError] = useState("");
@@ -59,6 +61,7 @@ export function StudioProvider({ children }: { children: ReactNode }) {
       stats?: StatsDay[];
       summary?: Summary;
       funnel?: Funnel;
+      usage?: AgentUsage;
     };
     if (json.needAuth) {
       setNeedAuth(true);
@@ -69,6 +72,7 @@ export function StudioProvider({ children }: { children: ReactNode }) {
     setStats(json.stats ?? []);
     setSummary(json.summary ?? null);
     setFunnel(json.funnel ?? null);
+    setUsage(json.usage ?? null);
   }, [period]);
 
   useEffect(() => {
@@ -144,6 +148,7 @@ export function StudioProvider({ children }: { children: ReactNode }) {
       stats,
       summary,
       funnel,
+      usage,
       needAuth,
       error,
       password,
@@ -159,7 +164,7 @@ export function StudioProvider({ children }: { children: ReactNode }) {
       saving,
       addOrder,
     }),
-    [orders, stats, summary, funnel, needAuth, error, password, loggingIn, login, period, load, run, manual, saving, addOrder],
+    [orders, stats, summary, funnel, usage, needAuth, error, password, loggingIn, login, period, load, run, manual, saving, addOrder],
   );
 
   return <StudioContext.Provider value={value}>{children}</StudioContext.Provider>;

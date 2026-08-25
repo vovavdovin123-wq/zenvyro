@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "bot": "node --dns-result-order=ipv4first ./node_modules/tsx/dist/cli.mjs src/studio/bot/index.ts"
+    "bot": "node --dns-result-order=ipv4first ./node_modules/tsx/dist/cli.mjs src/studio/bot/index.ts",
+    "memory": "tsx src/memory/cli.ts",
+    "demo:order": "tsx scripts/seed-demo-order.ts"
   },
   "dependencies": {
     "dotenv": "^17.4.2",

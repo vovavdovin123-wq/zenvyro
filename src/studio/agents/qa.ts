@@ -1,4 +1,5 @@
-import { studio } from "../config";
+import { studioGraphContext } from "../../memory/context";
+import { codebaseMemory, studio } from "../config";
 import type { Order } from "../types";
 import { runJsonAgent } from "./llm";
 
@@ -11,6 +12,11 @@ export async function runQa(order: Order) {
   }
 
   const lastRun = order.development.runs.at(-1);
+  const memory = codebaseMemory();
+  const graph = await studioGraphContext("qa", {
+    repoPath: memory.repo,
+    run: { bin: memory.bin || undefined },
+  });
 
   return runJsonAgent<{ pass: boolean; report: string }>({
     name: "qa",
@@ -18,12 +24,14 @@ export async function runQa(order: Order) {
 Сверяешь сборку ТОЛЬКО с зафиксированным spec.json.
 Код на этом шаге сам не чинишь. Не предлагай «заодно добавить».
 pass=true только если состав и критерии приёмки закрыты.
+Если в запросе есть routes — сверь их со составом ТЗ, не выдумывай лишние.
 JSON: { "pass": boolean, "report": string }`,
     user: JSON.stringify(
       {
         spec: order.spec,
         lastStage: lastRun,
         reworkCount: order.development.reworkCount,
+        routes: graph?.routes ?? [],
       },
       null,
       2,
