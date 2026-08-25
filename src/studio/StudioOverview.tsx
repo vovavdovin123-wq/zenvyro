@@ -66,10 +66,13 @@ export function StudioOverview() {
 
       <section className="zn-dash-mini zn-dash-mini--wide" aria-label="Токены агентов">
         <h2>Токены агентов</h2>
-        <p className="zn-dash-stat">{(usage?.totalTokens ?? 0).toLocaleString("ru-RU")}</p>
+        <p className="zn-dash-stat">
+          {(usage?.totalTokens || usage?.fallbackCalls || 0).toLocaleString("ru-RU")}
+        </p>
         <p className="zn-dash-hint">
-          {usage?.llmCalls ?? 0} вызовов LLM · {usage?.fallbackCalls ?? 0} фолбэк ·{" "}
-          {(usage?.promptTokens ?? 0).toLocaleString("ru-RU")} in / {(usage?.completionTokens ?? 0).toLocaleString("ru-RU")} out
+          {usage?.totalTokens
+            ? `${usage.llmCalls} вызовов LLM · ${usage.fallbackCalls} фолбэк · ${usage.promptTokens.toLocaleString("ru-RU")} in / ${usage.completionTokens.toLocaleString("ru-RU")} out`
+            : `Токенов 0 — нет OPENAI_API_KEY. ${usage?.fallbackCalls ?? 0} вызовов ушли в фолбэк.`}
         </p>
         {agents.length ? (
           <ul className="zn-dash-usage">
