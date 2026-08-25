@@ -22,6 +22,16 @@ export type Funnel = {
   applySubmits: number;
 };
 
+export type AgentUsage = {
+  calls: number;
+  llmCalls: number;
+  fallbackCalls: number;
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+  byAgent: Record<string, { calls: number; llmCalls: number; totalTokens: number }>;
+};
+
 export type Manual = {
   platform: string;
   name: string;

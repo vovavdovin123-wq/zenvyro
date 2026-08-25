@@ -41,6 +41,8 @@ src/
 
 `src/studio/` — очередь заявок, шаблоны сообщений и бот. Это внутреннее.
 
+Пульт: `/studio` (пароль `STUDIO_PASSWORD`). Тестовый лендинг по ТЗ: `/demo`. Прогон заказа: `npm run demo:order`.
+
 ## Граф кода (без MCP)
 
 Нужен бинарник [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) без установки MCP: `install.ps1 --skip-config` или переменная `CBM_BIN`.

@@ -6,6 +6,7 @@ import { applyHumanAction, createOrder, listOrders } from "@/studio/orders";
 import { isStudioSession, studioCookie, studioSessionToken } from "@/studio/session";
 import { listStats } from "@/studio/stats";
 import { isHumanAction, type OrderSource } from "@/studio/types";
+import { listUsage } from "@/studio/usage";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -42,10 +43,15 @@ export async function GET(request: Request) {
     return NextResponse.json({ needAuth: true });
   }
   try {
-    const [orders, stats] = await Promise.all([listOrders(), listStats(periodDays(request))]);
+    const [orders, stats, usage] = await Promise.all([
+      listOrders(),
+      listStats(periodDays(request)),
+      listUsage(),
+    ]);
     return NextResponse.json({
       orders,
       stats,
+      usage,
       summary: summarizeOrders(orders),
       funnel: {
         pageviews: stats.reduce((acc, day) => acc + day.pageviews, 0),
